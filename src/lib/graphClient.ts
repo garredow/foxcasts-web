@@ -1,4 +1,5 @@
 import { Client, createClient } from '@urql/svelte';
+import { authClient } from './authClient';
 
 class GraphClient {
   public client: Client;
@@ -20,3 +21,10 @@ class GraphClient {
 }
 
 export const graphClient = new GraphClient();
+
+export async function getClient() {
+  const token = await authClient.getTokenSilently();
+  graphClient.setToken(token);
+
+  return graphClient;
+}

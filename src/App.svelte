@@ -22,16 +22,9 @@
       userObj.token = await authClient.getTokenSilently();
       graphClient.setToken(userObj.token);
       user.set(userObj);
+      if (location.pathname === '/') navigate('dashboard');
     }
   });
-
-  $: {
-    console.log('user', $user);
-    if ($user) {
-      graphClient.setToken($user.token);
-      navigate('profile');
-    }
-  }
 </script>
 
 <Router {url}>

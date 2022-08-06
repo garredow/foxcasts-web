@@ -1,21 +1,28 @@
 <script lang="ts">
   import { queryStore } from '@urql/svelte';
+  import { onMount } from 'svelte';
   import Button from '../components/Button.svelte';
   import InputRow from '../components/InputRow.svelte';
   import TextAreaRow from '../components/TextAreaRow.svelte';
-  import { graphClient } from '../lib/graphClient';
+  import { getClient } from '../lib/graphClient';
   import { GetProfile } from '../queries/GetProfile';
   import { user } from '../stores/auth';
 
-  const profile = queryStore({
-    client: graphClient.client,
-    query: GetProfile,
-  });
+  let profile;
+  async function getProfile() {
+    const graphClient = await getClient();
+    profile = queryStore({
+      client: graphClient.client,
+      query: GetProfile,
+    });
+  }
 
-  $: console.log('profile', $profile.data);
+  onMount(() => getProfile());
+
+  $: console.log('profile', $profile?.data);
 </script>
 
-{#if $profile.fetching}
+{#if !profile || $profile.fetching}
   <p>Loading...</p>
 {:else if $profile.error}
   <p>Oh no... {$profile.error.message}</p>

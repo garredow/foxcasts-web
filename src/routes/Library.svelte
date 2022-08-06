@@ -4,11 +4,12 @@
   import Button from '../components/Button.svelte';
   import Card from '../components/Card.svelte';
   import Podcast from '../components/Podcast.svelte';
-  import { graphClient } from '../lib/graphClient';
+  import { getClient } from '../lib/graphClient';
   import { GetLibrary } from '../queries/GetLibrary';
 
   let library;
   async function getPodcasts() {
+    const graphClient = await getClient();
     library = queryStore({
       client: graphClient.client,
       query: GetLibrary,
