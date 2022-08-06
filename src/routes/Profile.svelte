@@ -2,9 +2,10 @@
   import { queryStore } from '@urql/svelte';
   import Button from '../components/Button.svelte';
   import InputRow from '../components/InputRow.svelte';
-  import Subscription from '../components/Subscription.svelte';
+  import TextAreaRow from '../components/TextAreaRow.svelte';
   import { graphClient } from '../lib/graphClient';
   import { GetProfile } from '../queries/GetProfile';
+  import { user } from '../stores/auth';
 
   const profile = queryStore({
     client: graphClient.client,
@@ -23,7 +24,7 @@
     <div class="title">Profile</div>
     <InputRow label="First Name" value={$profile.data.user.first_name} />
     <InputRow label="Last Name" value={$profile.data.user.last_name} />
-    <InputRow label="Email" value={$profile.data.user.email} />
+    <InputRow label="Email" value={$profile.data.user.email} disabled />
     <InputRow
       label="Created"
       value={new Date($profile.data.user.created_at).toLocaleString()}
@@ -39,13 +40,9 @@
     </div>
   </section>
   <section>
-    <div class="title">Subscriptions</div>
-    {#each $profile.data.user.subscriptions as sub}
-      <Subscription podcast={sub} />
-    {/each}
-    <div class="actions">
-      <Button title="Manage" onClick={() => console.log('manage')} />
-    </div>
+    <div class="title">Developer</div>
+    <InputRow label="User ID" value={$user?.sub} />
+    <TextAreaRow label="API Token" value={$user?.token} />
   </section>
 {/if}
 
