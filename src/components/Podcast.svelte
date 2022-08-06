@@ -1,10 +1,21 @@
 <script lang="ts">
+  import { mutationStore } from '@urql/svelte';
+  import { graphClient } from '../lib/graphClient';
+
   import type { Podcast } from '../models';
+  import { Unsubscribe } from '../mutations/Unsubscribe';
 
   export let podcast: Podcast;
+  export let onUnsubscribe: () => void;
 
-  function unsubscribe() {
-    console.log('unsub');
+  async function unsubscribe() {
+    mutationStore({
+      client: graphClient.client,
+      query: Unsubscribe,
+      variables: { podcastId: podcast.id },
+    }).subscribe((res) => {
+      if (!res.fetching && !res.error) onUnsubscribe();
+    });
   }
 </script>
 
@@ -13,9 +24,9 @@
   <div class="info">
     <div class="title">{podcast.title}</div>
     <div class="author">{podcast.author}</div>
-    <!-- <div class="actions">
+    <div class="actions">
       <a href="/" on:click|preventDefault={unsubscribe}>Unsubscribe</a>
-    </div> -->
+    </div>
   </div>
 </div>
 

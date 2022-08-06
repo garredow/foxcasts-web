@@ -5,7 +5,9 @@
   import Header from './components/Header.svelte';
   import { authClient } from './lib/authClient';
   import { graphClient } from './lib/graphClient';
+  import Dashboard from './routes/Dashboard.svelte';
   import Home from './routes/Home.svelte';
+  import Library from './routes/Library.svelte';
   import Profile from './routes/Profile.svelte';
   import { isAuthenticated, user } from './stores/auth';
 
@@ -27,14 +29,16 @@
     console.log('user', $user);
     if ($user) {
       graphClient.setToken($user.token);
-      navigate('/profile');
+      navigate('profile');
     }
   }
 </script>
 
 <Router {url}>
   <Header />
-  <Route path="/profile"><Profile /></Route>
   <Route path="/"><Home /></Route>
+  <Route path="dashboard" component={Dashboard} />
+  <Route path="profile" component={Profile} />
+  <Route path="library" component={Library} />
   <Footer />
 </Router>
