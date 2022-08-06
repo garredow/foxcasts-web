@@ -1,5 +1,4 @@
 import { gql } from '@urql/svelte';
-import type { Podcast } from '../models';
 
 type GetProfileResponse = {
   user: {
@@ -10,7 +9,6 @@ type GetProfileResponse = {
     avatar_url?: string;
     created_at: string;
     updated_at: string;
-    subscriptions: Podcast[];
   };
 };
 
@@ -24,15 +22,6 @@ export const GetProfile = gql<GetProfileResponse>`
       avatar_url
       created_at
       updated_at
-      subscriptions {
-        id
-        title
-        author
-        description
-        artwork {
-          url
-        }
-      }
     }
   }
 `;
