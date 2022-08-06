@@ -1,0 +1,20 @@
+:root {
+  --accent-color: #ec5817;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent-color);
+}
