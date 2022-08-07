@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { authClient } from '../lib/authClient';
+  import { createAuthClient } from '../lib/authClient';
   import { isAuthenticated, user } from '../stores/auth';
 
   async function login() {
+    const authClient = await createAuthClient();
     await authClient.loginWithPopup();
     user.set(await authClient.getUser<any>());
     isAuthenticated.set(true);
   }
 
-  function logout() {
+  async function logout() {
+    const authClient = await createAuthClient();
     authClient.logout();
   }
 </script>

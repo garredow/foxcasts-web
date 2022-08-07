@@ -3,7 +3,7 @@
   import { navigate, Route, Router } from 'svelte-routing';
   import Footer from './components/Footer.svelte';
   import Header from './components/Header.svelte';
-  import { authClient } from './lib/authClient';
+  import { createAuthClient } from './lib/authClient';
   import { graphClient } from './lib/graphClient';
   import Dashboard from './routes/Dashboard.svelte';
   import Home from './routes/Home.svelte';
@@ -15,6 +15,7 @@
   export let url = '';
 
   onMount(async () => {
+    const authClient = await createAuthClient();
     const loggedIn = await authClient.isAuthenticated();
     isAuthenticated.set(loggedIn);
 
