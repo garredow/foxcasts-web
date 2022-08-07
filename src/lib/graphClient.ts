@@ -6,7 +6,7 @@ class GraphClient {
 
   constructor() {
     this.client = createClient({
-      url: 'https://api.podcloud.social/graphql',
+      url: 'http://localhost:3005/graphql',
       requestPolicy: 'network-only',
     });
   }
