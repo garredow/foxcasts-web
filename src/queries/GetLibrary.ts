@@ -2,23 +2,19 @@ import { gql } from '@urql/svelte';
 import type { Podcast } from '../models';
 
 type GetLibraryResponse = {
-  user: {
-    subscriptions: Podcast[];
-  };
+  subscriptions: Podcast[];
 };
 
 export const GetLibrary = gql<GetLibraryResponse>`
   query {
-    user {
-      subscriptions {
-        id
-        title
-        author
-        description
-        is_subscribed
-        artwork {
-          url
-        }
+    subscriptions {
+      id
+      title
+      author
+      description
+      is_subscribed
+      artwork {
+        url
       }
     }
   }

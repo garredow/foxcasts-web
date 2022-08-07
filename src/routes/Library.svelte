@@ -31,7 +31,7 @@
   <p>Oh no... {$library.error.message}</p>
 {:else}
   <Card title="Podcasts">
-    {#each $library.data.user.subscriptions as sub}
+    {#each $library.data.subscriptions as sub}
       <Podcast podcast={sub} onChange={() => getPodcasts()} />
     {/each}
     <div class="actions">
