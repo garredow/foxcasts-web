@@ -11,7 +11,7 @@ type Variables = {
   podcastId: number;
 };
 
-export const Unsubscribe = gql<Response, Variables>`
+export const Subscribe = gql<Response, Variables>`
   mutation ($podcastId: BigInt!) {
     subscribe(podcastId: $podcastId)
   }
