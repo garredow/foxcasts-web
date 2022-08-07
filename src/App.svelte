@@ -28,12 +28,21 @@
   });
 </script>
 
-<Router {url}>
-  <Header />
-  <Route path="/"><Home /></Route>
-  <Route path="dashboard" component={Dashboard} />
-  <Route path="profile" component={Profile} />
-  <Route path="library" component={Library} />
-  <Route path="search" component={Search} />
-  <Footer />
-</Router>
+<div class="root">
+  <Router {url}>
+    <Header />
+    <Route path="/"><Home /></Route>
+    <Route path="dashboard" component={Dashboard} />
+    <Route path="profile" component={Profile} />
+    <Route path="library" component={Library} />
+    <Route path="search" component={Search} />
+    <Footer />
+  </Router>
+</div>
+
+<style>
+  .root {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+</style>
