@@ -17,7 +17,7 @@
   {#if $user}
     <a class="btn" href="/#" on:click={logout}>Log Out</a>
   {:else}
-    <a class="btn" href="/#" on:click={login}>Log In</a>
+    <a class="btn" href="/#" on:click={login}>Sign In</a>
   {/if}
 </footer>
 
