@@ -28,14 +28,4 @@
     align-items: center;
     padding: 10px 0;
   }
-
-  .icon {
-    aspect-ratio: 1/1;
-    height: 96px;
-    width: 96px;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
 </style>

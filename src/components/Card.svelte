@@ -22,9 +22,4 @@
     margin-bottom: 10px;
     text-align: center;
   }
-
-  section .actions {
-    display: flex;
-    justify-content: center;
-  }
 </style>
