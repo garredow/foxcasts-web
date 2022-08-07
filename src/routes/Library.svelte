@@ -1,6 +1,7 @@
 <script lang="ts">
   import { queryStore } from '@urql/svelte';
   import { onMount } from 'svelte';
+  import { navigate } from 'svelte-routing';
   import Button from '../components/Button.svelte';
   import Card from '../components/Card.svelte';
   import Podcast from '../components/Podcast.svelte';
@@ -30,10 +31,10 @@
 {:else}
   <Card title="Podcasts">
     {#each $library.data.user.subscriptions as sub}
-      <Podcast podcast={sub} onUnsubscribe={() => getPodcasts()} />
+      <Podcast podcast={sub} onChange={() => getPodcasts()} />
     {/each}
     <div class="actions">
-      <Button title="Add" onClick={() => console.log('add')} />
+      <Button title="Add" onClick={() => navigate('search')} />
     </div>
   </Card>
 {/if}

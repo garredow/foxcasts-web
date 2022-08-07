@@ -2,11 +2,16 @@
   export let label: string;
   export let value: string | number;
   export let disabled = false;
+  export let onChange: (value: string) => void = null;
+
+  function handleChange(ev: any) {
+    onChange?.(ev.target.value);
+  }
 </script>
 
 <div class="root">
   <label for="">{label}</label>
-  <input type="text" {value} {disabled} />
+  <input type="text" {value} {disabled} on:change={handleChange} />
 </div>
 
 <style>

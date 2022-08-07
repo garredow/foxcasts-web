@@ -15,6 +15,7 @@ export const GetLibrary = gql<GetLibraryResponse>`
         title
         author
         description
+        is_subscribed
         artwork {
           url
         }

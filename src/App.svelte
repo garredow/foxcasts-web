@@ -9,6 +9,7 @@
   import Home from './routes/Home.svelte';
   import Library from './routes/Library.svelte';
   import Profile from './routes/Profile.svelte';
+  import Search from './routes/Search.svelte';
   import { isAuthenticated, user } from './stores/auth';
 
   export let url = '';
@@ -33,5 +34,6 @@
   <Route path="dashboard" component={Dashboard} />
   <Route path="profile" component={Profile} />
   <Route path="library" component={Library} />
+  <Route path="search" component={Search} />
   <Footer />
 </Router>

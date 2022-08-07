@@ -10,6 +10,7 @@ export type Podcast = {
   feed_url: string;
   categories?: number[];
   last_fetched_episodes: string;
+  is_subscribed: boolean;
   created_at: string;
   updated_at: string;
 };

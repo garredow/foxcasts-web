@@ -1,12 +1,25 @@
 <script lang="ts">
   import { mutationStore } from '@urql/svelte';
+  import MdAdd from 'svelte-icons/md/MdAdd.svelte';
+  import MdClear from 'svelte-icons/md/MdClear.svelte';
   import { graphClient } from '../lib/graphClient';
-
   import type { Podcast } from '../models';
+  import { Subscribe } from '../mutations/Subscribe';
   import { Unsubscribe } from '../mutations/Unsubscribe';
+  import IconButton from './IconButton.svelte';
 
   export let podcast: Podcast;
-  export let onUnsubscribe: () => void;
+  export let onChange: () => void = null;
+
+  async function subscribe() {
+    mutationStore({
+      client: graphClient.client,
+      query: Subscribe,
+      variables: { podcastId: podcast.id },
+    }).subscribe((res) => {
+      if (!res.fetching && !res.error) onChange?.();
+    });
+  }
 
   async function unsubscribe() {
     mutationStore({
@@ -14,7 +27,7 @@
       query: Unsubscribe,
       variables: { podcastId: podcast.id },
     }).subscribe((res) => {
-      if (!res.fetching && !res.error) onUnsubscribe();
+      if (!res.fetching && !res.error) onChange?.();
     });
   }
 </script>
@@ -24,15 +37,21 @@
   <div class="info">
     <div class="title">{podcast.title}</div>
     <div class="author">{podcast.author}</div>
-    <div class="actions">
-      <a href="/" on:click|preventDefault={unsubscribe}>Unsubscribe</a>
-    </div>
+  </div>
+  <div class="actions">
+    {#if podcast.is_subscribed}
+      <IconButton icon={MdClear} onClick={unsubscribe} />
+    {/if}
+    {#if !podcast.is_subscribed}
+      <IconButton icon={MdAdd} onClick={subscribe} />
+    {/if}
   </div>
 </div>
 
 <style>
   .root {
     display: flex;
+    align-items: center;
     margin: 10px 0;
   }
 
@@ -49,6 +68,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1;
   }
 
   .title,
@@ -59,9 +79,5 @@
   }
   .author {
     color: rgba(0, 0, 0, 0.5);
-  }
-
-  .actions {
-    font-size: 0.8rem;
   }
 </style>
