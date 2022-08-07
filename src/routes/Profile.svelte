@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import Button from '../components/Button.svelte';
   import InputRow from '../components/InputRow.svelte';
+  import Loading from '../components/Loading.svelte';
   import TextAreaRow from '../components/TextAreaRow.svelte';
   import { getClient } from '../lib/graphClient';
   import { GetProfile } from '../queries/GetProfile';
@@ -23,7 +24,7 @@
 </script>
 
 {#if !profile || $profile.fetching}
-  <p>Loading...</p>
+  <Loading />
 {:else if $profile.error}
   <p>Oh no... {$profile.error.message}</p>
 {:else}

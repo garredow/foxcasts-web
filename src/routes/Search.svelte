@@ -2,6 +2,7 @@
   import { queryStore } from '@urql/svelte';
   import Card from '../components/Card.svelte';
   import InputRow from '../components/InputRow.svelte';
+  import Loading from '../components/Loading.svelte';
   import Podcast from '../components/Podcast.svelte';
   import { getClient } from '../lib/graphClient';
   import { Search } from '../queries/Search';
@@ -26,7 +27,7 @@
 {#if !results}
   <div />
 {:else if $results.fetching}
-  <p>Loading...</p>
+  <Loading />
 {:else if $results.error}
   <p>Oh no... {$results.error.message}</p>
 {:else}

@@ -4,6 +4,7 @@
   import { navigate } from 'svelte-routing';
   import Button from '../components/Button.svelte';
   import Card from '../components/Card.svelte';
+  import Loading from '../components/Loading.svelte';
   import Podcast from '../components/Podcast.svelte';
   import { getClient } from '../lib/graphClient';
   import { GetLibrary } from '../queries/GetLibrary';
@@ -25,7 +26,7 @@
 </script>
 
 {#if !library || $library.fetching}
-  <p>Loading...</p>
+  <Loading />
 {:else if $library.error}
   <p>Oh no... {$library.error.message}</p>
 {:else}
