@@ -6,7 +6,7 @@ class GraphClient {
 
   constructor() {
     this.client = createClient({
-      url: 'http://localhost:3005/graphql',
+      url: 'https://api2.foxcasts.com/graphql',
       requestPolicy: 'network-only',
     });
   }
