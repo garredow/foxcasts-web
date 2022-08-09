@@ -14,8 +14,6 @@
   onMount(() => {
     result = query(GetProfile);
   });
-
-  $: console.log('result', $result);
 </script>
 
 {#if !result || $result.fetching}

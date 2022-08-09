@@ -16,8 +16,6 @@
   }
 
   onMount(() => getData());
-
-  $: console.log('library', $library);
 </script>
 
 {#if !library || $library.fetching}
@@ -30,7 +28,7 @@
       <Podcast podcast={sub} onChange={() => getData()} />
     {/each}
     <div class="actions">
-      <Button title="Add" onClick={() => navigate('search')} />
+      <Button title="Add" onClick={() => navigate('/search')} />
     </div>
   </Card>
 {/if}
