@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { mutationStore } from '@urql/svelte';
   import MdAdd from 'svelte-icons/md/MdAdd.svelte';
   import MdClear from 'svelte-icons/md/MdClear.svelte';
-  import { graphClient } from '../lib/graphClient';
+  import { mutation } from '../lib/mutation';
   import type { Podcast } from '../models';
   import { Subscribe } from '../mutations/Subscribe';
   import { Unsubscribe } from '../mutations/Unsubscribe';
@@ -12,21 +11,13 @@
   export let onChange: () => void = null;
 
   async function subscribe() {
-    mutationStore({
-      client: graphClient.client,
-      query: Subscribe,
-      variables: { podcastId: podcast.id },
-    }).subscribe((res) => {
+    mutation(Subscribe, { podcastId: podcast.id }).subscribe((res) => {
       if (!res.fetching && !res.error) onChange?.();
     });
   }
 
   async function unsubscribe() {
-    mutationStore({
-      client: graphClient.client,
-      query: Unsubscribe,
-      variables: { podcastId: podcast.id },
-    }).subscribe((res) => {
+    mutation(Unsubscribe, { podcastId: podcast.id }).subscribe((res) => {
       if (!res.fetching && !res.error) onChange?.();
     });
   }

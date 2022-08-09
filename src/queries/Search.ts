@@ -1,16 +1,16 @@
 import { gql } from '@urql/svelte';
 import type { Podcast } from '../models';
 
-type Response = {
+export type SearchResponse = {
   search: Podcast[];
 };
 
-type Variables = {
+export type SearchVariables = {
   query: string;
   count: number;
 };
 
-export const Search = gql<Response, Variables>`
+export const Search = gql<SearchResponse, SearchVariables>`
   query ($query: String!, $count: Int!) {
     search(query: $query, count: $count) {
       id

@@ -4,7 +4,6 @@
   import Footer from './components/Footer.svelte';
   import Header from './components/Header.svelte';
   import { createAuthClient } from './lib/authClient';
-  import { graphClient } from './lib/graphClient';
   import Dashboard from './routes/Dashboard.svelte';
   import Home from './routes/Home.svelte';
   import Library from './routes/Library.svelte';
@@ -22,7 +21,6 @@
     if (loggedIn) {
       const userObj: any = await authClient.getUser();
       userObj.token = await authClient.getTokenSilently();
-      graphClient.setToken(userObj.token);
       user.set(userObj);
       if (location.pathname === '/') navigate('dashboard');
     }

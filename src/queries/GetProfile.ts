@@ -1,6 +1,6 @@
 import { gql } from '@urql/svelte';
 
-type GetProfileResponse = {
+export type GetProfileResponse = {
   user: {
     id: string;
     first_name?: string;

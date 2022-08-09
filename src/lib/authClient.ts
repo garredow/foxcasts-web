@@ -1,12 +1,13 @@
 import createAuth0Client from '@auth0/auth0-spa-js';
+import { config } from './config';
 
 export async function createAuthClient() {
   const authClient = await createAuth0Client({
-    domain: 'foxcasts.us.auth0.com',
-    client_id: '55YoJp810kRcRcavhU5RkzUuxRJs4gW9',
-    redirect_uri: window.location.origin,
-    scope: 'read:current_user update:current_user_metadata offline_access openid',
-    audience: 'https://api.foxcasts.com',
+    domain: config.authDomain,
+    client_id: config.authClientId,
+    redirect_uri: config.authRedirectUri,
+    scope: config.authScope,
+    audience: config.authAudience,
   });
 
   return authClient;

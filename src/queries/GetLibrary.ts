@@ -1,7 +1,7 @@
 import { gql } from '@urql/svelte';
 import type { Podcast } from '../models';
 
-type GetLibraryResponse = {
+export type GetLibraryResponse = {
   subscriptions: Podcast[];
 };
 

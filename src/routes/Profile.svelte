@@ -1,46 +1,41 @@
 <script lang="ts">
-  import { queryStore } from '@urql/svelte';
   import { onMount } from 'svelte';
+  import type { Writable } from 'svelte/store';
   import Button from '../components/Button.svelte';
   import InputRow from '../components/InputRow.svelte';
   import Loading from '../components/Loading.svelte';
   import TextAreaRow from '../components/TextAreaRow.svelte';
-  import { getClient } from '../lib/graphClient';
-  import { GetProfile } from '../queries/GetProfile';
+  import { query, type Query } from '../lib/query';
+  import { GetProfile, type GetProfileResponse } from '../queries/GetProfile';
   import { user } from '../stores/auth';
 
-  let profile;
-  async function getProfile() {
-    const graphClient = await getClient();
-    profile = queryStore({
-      client: graphClient.client,
-      query: GetProfile,
-    });
-  }
+  let result: Writable<Query<GetProfileResponse>>;
 
-  onMount(() => getProfile());
+  onMount(() => {
+    result = query(GetProfile);
+  });
 
-  $: console.log('profile', $profile?.data);
+  $: console.log('result', $result);
 </script>
 
-{#if !profile || $profile.fetching}
+{#if !result || $result.fetching}
   <Loading />
-{:else if $profile.error}
-  <p>Oh no... {$profile.error.message}</p>
+{:else if $result.error}
+  <p>Oh no... {$result.error.message}</p>
 {:else}
   <section>
     <div class="title">Profile</div>
-    <InputRow label="First Name" value={$profile.data.user.first_name} />
-    <InputRow label="Last Name" value={$profile.data.user.last_name} />
-    <InputRow label="Email" value={$profile.data.user.email} disabled />
+    <InputRow label="First Name" value={$result.data.user.first_name} />
+    <InputRow label="Last Name" value={$result.data.user.last_name} />
+    <InputRow label="Email" value={$result.data.user.email} disabled />
     <InputRow
       label="Created"
-      value={new Date($profile.data.user.created_at).toLocaleString()}
+      value={new Date($result.data.user.created_at).toLocaleString()}
       disabled
     />
     <InputRow
       label="Updated"
-      value={new Date($profile.data.user.updated_at).toLocaleString()}
+      value={new Date($result.data.user.updated_at).toLocaleString()}
       disabled
     />
     <div class="actions">
