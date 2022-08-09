@@ -1,6 +1,7 @@
 <script lang="ts">
   import MdAdd from 'svelte-icons/md/MdAdd.svelte';
   import MdClear from 'svelte-icons/md/MdClear.svelte';
+  import { navigate } from 'svelte-routing';
   import { mutation } from '../lib/mutation';
   import type { Podcast } from '../models';
   import { Subscribe } from '../mutations/Subscribe';
@@ -26,7 +27,9 @@
 <div class="root">
   <img class="artwork" src={podcast.artwork?.url} alt="" />
   <div class="info">
-    <div class="title">{podcast.title}</div>
+    <a href="/" on:click|preventDefault={() => navigate(`/podcast/${podcast.id}`)} class="title"
+      >{podcast.title}</a
+    >
     <div class="author">{podcast.author}</div>
   </div>
   <div class="actions">
